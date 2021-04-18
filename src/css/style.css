@@ -126,3 +126,7 @@ body, html { height: 100%; width: 100%; margin: 0; }
 .popUp__buttons { margin-top: 18px; text-align: center; }
 
 .popUp__buttons--confirm { margin-top: 28px; }
+
+.button { background-color: transparent; }
+
+.button:hover { cursor: pointer; }
