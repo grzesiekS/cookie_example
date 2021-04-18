@@ -1,10 +1,12 @@
+import Cookies from './components/Cookies.js';
+
 const privacyPolicy = {
-  initVendors: () => {
-    console.log('vendors');
+  initCookies: () => {
+    new Cookies();
   },
 
   init: () => {
-    privacyPolicy.initVendors();
+    privacyPolicy.initCookies();
   },
 };
 
