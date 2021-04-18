@@ -3,6 +3,7 @@ class Cookies {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
     this.vendorsOnPage = 4;
     this.currentPage = 0;
+    this.maxPages = 1;
 
     this.createPopUpHtml();
 
@@ -10,6 +11,8 @@ class Cookies {
     this.getVendorsData(this.vendorUrl);
     this.setBlurClassToElements();
     this.setStopScrolling();
+
+    this.handleNextVendors();
   }
 
   createPopUpHtml() {
@@ -32,13 +35,13 @@ class Cookies {
 
     const leftButton = document.createElement('button');
     leftButton.classList.add('button');
-    leftButton.classList.add('button--left');
+    leftButton.classList.add('button--prev');
 
     leftButton.innerHTML = 'Prev';
 
     const rightButton = document.createElement('button');
     rightButton.classList.add('button');
-    rightButton.classList.add('button--right');
+    rightButton.classList.add('button--next');
 
     rightButton.innerHTML = 'Next';
 
@@ -91,13 +94,15 @@ class Cookies {
       dataReturned.push(data[vendor]);
     }
     
+    this.maxPages = Math.ceil(dataReturned.length / this.vendorsOnPage);
+
     this.renderVendorInDOM(dataReturned);
   }
 
   renderVendorInDOM(vendorsData) {
     const thisCookies = this;
 
-    const vendorsToRender = vendorsData.splice(
+    const vendorsToRender = vendorsData.slice(
       thisCookies.currentPage * thisCookies.vendorsOnPage,
       thisCookies.vendorsOnPage * (thisCookies.currentPage + 1)
     );
@@ -156,11 +161,25 @@ class Cookies {
     window.addEventListener('scroll', () => {window.scrollTo(0, 0);});
   }
 
+  handleNextVendors() {
+    const thisCookies = this;
+
+    thisCookies.nextButton.addEventListener('click', () => {
+      if(thisCookies.currentPage < thisCookies.maxPages) {
+        thisCookies.currentPage += 1;
+        thisCookies.popUp.innerHTML = '';
+        thisCookies.getVendorsData(thisCookies.vendorUrl);
+      }
+    });
+  }
+
   getElements() {
     const thisCookies = this;
 
     thisCookies.selectAll = document.body.children;
     thisCookies.popUp = document.querySelector('.popUp__vendorsList');
+    thisCookies.nextButton = document.querySelector('.button--next');
+    thisCookies.prevButton = document.querySelector('.button--prev');
   }
 }
 
