@@ -51,7 +51,7 @@ class Cookies {
   getElements() {
     const thisCookies = this;
 
-    thisCookies.selectAll = document.body.querySelectorAll('*');
+    thisCookies.selectAll = document.body.children;
   }
 }
 
