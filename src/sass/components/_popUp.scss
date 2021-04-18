@@ -23,3 +23,12 @@
 .popUp__vendor {
   flex: 1 1;
 }
+
+.popUp__buttons {
+  margin-top: 18px;
+  text-align: center;
+
+  &--confirm {
+    margin-top: 28px;
+  }
+}

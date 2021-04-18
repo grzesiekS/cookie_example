@@ -122,3 +122,7 @@ body, html { height: 100%; width: 100%; margin: 0; }
 .popUp__vendorsList { display: flex; justify-content: center; text-align: center; }
 
 .popUp__vendor { flex: 1 1; }
+
+.popUp__buttons { margin-top: 18px; text-align: center; }
+
+.popUp__buttons--confirm { margin-top: 28px; }
