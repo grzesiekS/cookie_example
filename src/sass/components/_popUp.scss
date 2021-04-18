@@ -13,3 +13,13 @@
 .popUp__title {
   text-align: center;
 }
+
+.popUp__vendorsList {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.popUp__vendor {
+  flex: 1 1;
+}

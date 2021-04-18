@@ -118,3 +118,7 @@ body, html { height: 100%; width: 100%; margin: 0; }
 .popUp { position: fixed; z-index: 1000; top: 50%; left: 50%; width: 100%; transform: translate(-50%, -50%); background-color: white; padding: 15px 12px; box-shadow: 5px 5px 14px 1px rgba(0, 0, 0, 0.5); }
 
 .popUp__title { text-align: center; }
+
+.popUp__vendorsList { display: flex; justify-content: center; text-align: center; }
+
+.popUp__vendor { flex: 1 1; }
