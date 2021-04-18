@@ -22,6 +22,11 @@ class Cookies {
 
     popUpSection.appendChild(popUpTitle);
 
+    const popUpVendorSection = document.createElement('div');
+    popUpVendorSection.classList.add('popUp__vendorsList');
+
+    popUpSection.appendChild(popUpVendorSection);
+
     const popUpButtons = document.createElement('div');
     popUpButtons.classList.add('popUp__buttons');
     popUpButtons.classList.add('popUp__buttons--confirm');
@@ -99,6 +104,7 @@ class Cookies {
     const thisCookies = this;
 
     thisCookies.selectAll = document.body.children;
+    thisCookies.popUp = document.querySelector('popUp__vendorsList');
   }
 }
 
