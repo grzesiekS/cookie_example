@@ -13,6 +13,7 @@ class Cookies {
     this.setStopScrolling();
 
     this.handleNextVendors();
+    this.handlePrevVendors();
   }
 
   createPopUpHtml() {
@@ -167,6 +168,18 @@ class Cookies {
     thisCookies.nextButton.addEventListener('click', () => {
       if(thisCookies.currentPage < thisCookies.maxPages) {
         thisCookies.currentPage += 1;
+        thisCookies.popUp.innerHTML = '';
+        thisCookies.getVendorsData(thisCookies.vendorUrl);
+      }
+    });
+  }
+
+  handlePrevVendors() {
+    const thisCookies = this;
+
+    thisCookies.prevButton.addEventListener('click', () => {
+      if(thisCookies.currentPage > 0) {
+        thisCookies.currentPage -= 1;
         thisCookies.popUp.innerHTML = '';
         thisCookies.getVendorsData(thisCookies.vendorUrl);
       }
