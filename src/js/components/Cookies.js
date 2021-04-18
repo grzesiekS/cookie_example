@@ -2,7 +2,10 @@ class Cookies {
   constructor() {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
 
+    this.getElements();
     this.getVendorsData(this.vendorUrl);
+    this.setBlurClassToElements();
+    this.setStopScrolling();
   }
 
   getVendorsData(url) {
@@ -28,6 +31,27 @@ class Cookies {
     }
     
     this.vendorsData = dataReturned;
+  }
+
+  setBlurClassToElements() {
+    const thisCookies = this;
+
+    for(let element of thisCookies.selectAll) {
+      const attClass = element.getAttribute('class');
+      if(attClass !== null && !attClass.includes('popUp')) {
+        element.classList.add('blur');
+      }
+    }
+  }
+
+  setStopScrolling() {
+    window.addEventListener('scroll', () => {window.scrollTo(0, 0);});
+  }
+
+  getElements() {
+    const thisCookies = this;
+
+    thisCookies.selectAll = document.body.querySelectorAll('*');
   }
 }
 
