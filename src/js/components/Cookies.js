@@ -98,8 +98,8 @@ class Cookies {
     const thisCookies = this;
 
     const vendorsToRender = vendorsData.splice(
-      thisCookies.currentPage,
-      thisCookies.vendorsOnPage
+      thisCookies.currentPage * thisCookies.vendorsOnPage,
+      thisCookies.vendorsOnPage * (thisCookies.currentPage + 1)
     );
 
     for(let vendor of vendorsToRender) {
