@@ -27,6 +27,26 @@ class Cookies {
 
     popUpSection.appendChild(popUpVendorSection);
 
+    const popUpNavButtons = document.createElement('div');
+    popUpNavButtons.classList.add('popUp__buttons');
+
+    const leftButton = document.createElement('button');
+    leftButton.classList.add('button');
+    leftButton.classList.add('button--left');
+
+    leftButton.innerHTML = 'Prev';
+
+    const rightButton = document.createElement('button');
+    rightButton.classList.add('button');
+    rightButton.classList.add('button--right');
+
+    rightButton.innerHTML = 'Next';
+
+    popUpNavButtons.appendChild(leftButton);
+    popUpNavButtons.appendChild(rightButton);
+
+    popUpSection.appendChild(popUpNavButtons);
+
     const popUpButtons = document.createElement('div');
     popUpButtons.classList.add('popUp__buttons');
     popUpButtons.classList.add('popUp__buttons--confirm');
@@ -82,7 +102,43 @@ class Cookies {
       thisCookies.vendorsOnPage
     );
 
-    console.log(vendorsToRender);
+    for(let vendor of vendorsToRender) {
+      thisCookies.createVendorElement(vendor);
+    }
+  }
+
+  createVendorElement(vendorData) {
+    const thisCookies = this;
+
+    const vendorElement = document.createElement('div');
+    vendorElement.classList.add('popUp__vendor');
+
+    const vendorNameElement = document.createElement('h2');
+    vendorNameElement.classList.add('popUp__vendor-name');
+    vendorNameElement.innerHTML = vendorData.name;
+
+    vendorElement.appendChild(vendorNameElement);
+
+    const vendorPolicyUrlElement = document.createElement('a');
+    vendorPolicyUrlElement.setAttribute('href', vendorData.policyUrl);
+    vendorPolicyUrlElement.innerHTML = 'Policy URL';
+
+    vendorElement.appendChild(vendorPolicyUrlElement);
+
+    const vendorAcceptButton = document.createElement('button');
+    vendorAcceptButton.classList.add('button');
+    vendorAcceptButton.classList.add('button--accept');
+    vendorAcceptButton.innerHTML = 'Accept';
+
+    vendorElement.appendChild(vendorAcceptButton);
+
+    thisCookies.appendVendorElementToList(vendorElement);
+  }
+
+  appendVendorElementToList(vendorElement) {
+    const thisCookies = this;
+
+    thisCookies.popUp.appendChild(vendorElement);
   }
 
   setBlurClassToElements() {
@@ -104,7 +160,7 @@ class Cookies {
     const thisCookies = this;
 
     thisCookies.selectAll = document.body.children;
-    thisCookies.popUp = document.querySelector('popUp__vendorsList');
+    thisCookies.popUp = document.querySelector('.popUp__vendorsList');
   }
 }
 
