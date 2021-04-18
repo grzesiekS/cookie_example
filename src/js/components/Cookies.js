@@ -1,11 +1,47 @@
 class Cookies {
   constructor() {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
+    this.vendorsOnPage = 4;
+    this.currentPage = 0;
+
+    this.createPopUpHtml();
 
     this.getElements();
     this.getVendorsData(this.vendorUrl);
     this.setBlurClassToElements();
     this.setStopScrolling();
+  }
+
+  createPopUpHtml() {
+    const popUpSection = document.createElement('section');
+    popUpSection.classList.add('popUp');
+
+    const popUpTitle = document.createElement('h1');
+    popUpTitle.classList.add('popUp__title');
+    popUpTitle.innerHTML = 'GDPR consent';
+
+    popUpSection.appendChild(popUpTitle);
+
+    const popUpButtons = document.createElement('div');
+    popUpButtons.classList.add('popUp__buttons');
+    popUpButtons.classList.add('popUp__buttons--confirm');
+
+    const buttonAccept = document.createElement('button');
+    buttonAccept.classList.add('button');
+    buttonAccept.classList.add('button--accept');
+    buttonAccept.innerHTML = 'Accept';
+
+    const buttonReject = document.createElement('button');
+    buttonReject.classList.add('button');
+    buttonReject.classList.add('button--reject');
+    buttonReject.innerHTML = 'Reject';
+
+    popUpButtons.appendChild(buttonAccept);
+    popUpButtons.appendChild(buttonReject);
+
+    popUpSection.appendChild(popUpButtons);
+
+    document.body.prepend(popUpSection);
   }
 
   getVendorsData(url) {
@@ -30,7 +66,18 @@ class Cookies {
       dataReturned.push(data[vendor]);
     }
     
-    this.vendorsData = dataReturned;
+    this.renderVendorInDOM(dataReturned);
+  }
+
+  renderVendorInDOM(vendorsData) {
+    const thisCookies = this;
+
+    const vendorsToRender = vendorsData.splice(
+      thisCookies.currentPage,
+      thisCookies.vendorsOnPage
+    );
+
+    console.log(vendorsToRender);
   }
 
   setBlurClassToElements() {
