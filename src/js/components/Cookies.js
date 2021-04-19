@@ -16,6 +16,7 @@ class Cookies {
       this.setStopScrolling();
 
       this.handleAcceptAction();
+      this.handleRejectAction();
     }
   }
 
@@ -173,6 +174,16 @@ class Cookies {
     });
   }
 
+  handleRejectAction() {
+    const thisCookies = this;
+
+    thisCookies.rejectCookiesButton.addEventListener('click', () => {
+      thisCookies.removePopUp();
+      thisCookies.removeBlurClass();
+      thisCookies.unlockScrolling();
+    });
+  }
+
   acceptCookieCreate() {
     const thisCookies = this;
     document.cookie = `cookiePrivacyPolice=${JSON.stringify({accept: true, vendorsAccept: thisCookies.vendorsCookieAccept})}`;
@@ -213,6 +224,7 @@ class Cookies {
     thisCookies.selectAll = document.body.children;
     thisCookies.popUpVendors = document.querySelector('.popUp__vendorsList');
     thisCookies.acceptCookiesButton = document.querySelector('.popUp__buttons--confirm .button--accept');
+    thisCookies.rejectCookiesButton = document.querySelector('.popUp__buttons--confirm .button--reject');
     thisCookies.popUp = document.querySelector('.popUp');
   }
 }
