@@ -3,7 +3,8 @@ class Cookies {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
     this.vendorsOnPage = 4;
     this.currentPage = 0;
-    this.maxPages = 1;
+    this.maxPages = 0;
+    this.vendorsCookieAccept = [];
 
     this.createPopUpHtml();
 
@@ -135,6 +136,21 @@ class Cookies {
     vendorAcceptButton.classList.add('button');
     vendorAcceptButton.classList.add('button--accept');
     vendorAcceptButton.innerHTML = 'Accept';
+    vendorAcceptButton.setAttribute('vendorid', vendorData.id);
+
+    if(thisCookies.vendorsCookieAccept.indexOf(vendorData.id.toString()) !== -1) {
+      vendorAcceptButton.classList.add('accept');
+    }
+
+    vendorAcceptButton.addEventListener('click', function() {
+      const vendorId = this.getAttribute('vendorid');
+
+      if(thisCookies.vendorsCookieAccept.indexOf(vendorId) === -1) {
+        thisCookies.vendorsCookieAccept.push(vendorId);
+        this.classList.add('accept');
+      }
+      
+    });
 
     vendorElement.appendChild(vendorAcceptButton);
 

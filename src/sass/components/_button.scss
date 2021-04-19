@@ -1,6 +1,10 @@
 .button {
   background-color: transparent;
 
+  &.accept {
+    background-color: lightgreen;
+  }
+
   &:hover {
     cursor: pointer;
   }
