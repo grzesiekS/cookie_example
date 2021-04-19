@@ -3,6 +3,7 @@ class Cookies {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
     this.vendorsCookieAccept = [];
     this.cookieAccept = false;
+    this.scrollZero = () => window.scrollTo(0, 0);
 
     this.getCookiAcceptData();
 
@@ -135,7 +136,7 @@ class Cookies {
   appendVendorElementToList(vendorElement) {
     const thisCookies = this;
 
-    thisCookies.popUp.appendChild(vendorElement);
+    thisCookies.popUpVendors.appendChild(vendorElement);
   }
 
   setBlurClassToElements() {
@@ -150,7 +151,15 @@ class Cookies {
   }
 
   setStopScrolling() {
-    window.addEventListener('scroll', () => {window.scrollTo(0, 0);});
+    const thisCookies = this;
+
+    window.addEventListener('scroll', thisCookies.scrollZero, true);
+  }
+
+  unlockScrolling() {
+    const thisCookies = this;
+
+    window.removeEventListener('scroll', thisCookies.scrollZero, true);
   }
 
   handleAcceptAction() {
@@ -158,6 +167,9 @@ class Cookies {
 
     thisCookies.acceptCookiesButton.addEventListener('click', () => {
       thisCookies.acceptCookieCreate();
+      thisCookies.removePopUp();
+      thisCookies.removeBlurClass();
+      thisCookies.unlockScrolling();
     });
   }
 
@@ -181,12 +193,27 @@ class Cookies {
   
   }
 
+  removePopUp() {
+    const thisCookies = this;
+
+    thisCookies.popUp.remove();
+  }
+
+  removeBlurClass() {
+    const thisCookies = this;
+
+    for(let element of thisCookies.selectAll) {
+      element.classList.remove('blur');
+    }
+  }
+
   getElements() {
     const thisCookies = this;
 
     thisCookies.selectAll = document.body.children;
-    thisCookies.popUp = document.querySelector('.popUp__vendorsList');
+    thisCookies.popUpVendors = document.querySelector('.popUp__vendorsList');
     thisCookies.acceptCookiesButton = document.querySelector('.popUp__buttons--confirm .button--accept');
+    thisCookies.popUp = document.querySelector('.popUp');
   }
 }
 
