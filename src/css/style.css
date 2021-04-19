@@ -119,9 +119,13 @@ body, html { height: 100%; width: 100%; margin: 0; }
 
 .popUp__title { text-align: center; }
 
-.popUp__vendorsList { display: flex; justify-content: center; text-align: center; }
+.popUp__vendorsList { max-height: 450px; overflow-y: scroll; }
 
-.popUp__vendor { flex: 1 1; }
+.popUp__vendor { text-align: center; }
+
+.popUp__vendor a { margin-right: 25px; }
+
+.popUp__vendor-name { display: inline-block; font-size: 16px; margin-right: 25px; }
 
 .popUp__buttons { margin-top: 18px; text-align: center; }
 

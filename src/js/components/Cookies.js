@@ -1,9 +1,6 @@
 class Cookies {
   constructor() {
     this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
-    this.vendorsOnPage = 4;
-    this.currentPage = 0;
-    this.maxPages = 0;
     this.vendorsCookieAccept = [];
 
     this.createPopUpHtml();
@@ -12,9 +9,6 @@ class Cookies {
     this.getVendorsData(this.vendorUrl);
     this.setBlurClassToElements();
     this.setStopScrolling();
-
-    this.handleNextVendors();
-    this.handlePrevVendors();
   }
 
   createPopUpHtml() {
@@ -31,26 +25,6 @@ class Cookies {
     popUpVendorSection.classList.add('popUp__vendorsList');
 
     popUpSection.appendChild(popUpVendorSection);
-
-    const popUpNavButtons = document.createElement('div');
-    popUpNavButtons.classList.add('popUp__buttons');
-
-    const leftButton = document.createElement('button');
-    leftButton.classList.add('button');
-    leftButton.classList.add('button--prev');
-
-    leftButton.innerHTML = 'Prev';
-
-    const rightButton = document.createElement('button');
-    rightButton.classList.add('button');
-    rightButton.classList.add('button--next');
-
-    rightButton.innerHTML = 'Next';
-
-    popUpNavButtons.appendChild(leftButton);
-    popUpNavButtons.appendChild(rightButton);
-
-    popUpSection.appendChild(popUpNavButtons);
 
     const popUpButtons = document.createElement('div');
     popUpButtons.classList.add('popUp__buttons');
@@ -96,7 +70,6 @@ class Cookies {
       dataReturned.push(data[vendor]);
     }
     
-    this.maxPages = Math.ceil(dataReturned.length / this.vendorsOnPage);
 
     this.renderVendorInDOM(dataReturned);
   }
@@ -104,12 +77,7 @@ class Cookies {
   renderVendorInDOM(vendorsData) {
     const thisCookies = this;
 
-    const vendorsToRender = vendorsData.slice(
-      thisCookies.currentPage * thisCookies.vendorsOnPage,
-      thisCookies.vendorsOnPage * (thisCookies.currentPage + 1)
-    );
-
-    for(let vendor of vendorsToRender) {
+    for(let vendor of vendorsData) {
       thisCookies.createVendorElement(vendor);
     }
   }
@@ -178,37 +146,11 @@ class Cookies {
     window.addEventListener('scroll', () => {window.scrollTo(0, 0);});
   }
 
-  handleNextVendors() {
-    const thisCookies = this;
-
-    thisCookies.nextButton.addEventListener('click', () => {
-      if(thisCookies.currentPage < thisCookies.maxPages) {
-        thisCookies.currentPage += 1;
-        thisCookies.popUp.innerHTML = '';
-        thisCookies.getVendorsData(thisCookies.vendorUrl);
-      }
-    });
-  }
-
-  handlePrevVendors() {
-    const thisCookies = this;
-
-    thisCookies.prevButton.addEventListener('click', () => {
-      if(thisCookies.currentPage > 0) {
-        thisCookies.currentPage -= 1;
-        thisCookies.popUp.innerHTML = '';
-        thisCookies.getVendorsData(thisCookies.vendorUrl);
-      }
-    });
-  }
-
   getElements() {
     const thisCookies = this;
 
     thisCookies.selectAll = document.body.children;
     thisCookies.popUp = document.querySelector('.popUp__vendorsList');
-    thisCookies.nextButton = document.querySelector('.button--next');
-    thisCookies.prevButton = document.querySelector('.button--prev');
   }
 }
 

@@ -15,13 +15,22 @@
 }
 
 .popUp__vendorsList {
-  display: flex;
-  justify-content: center;
-  text-align: center;
+  max-height: 450px;
+  overflow-y: scroll;
 }
 
 .popUp__vendor {
-  flex: 1 1;
+  text-align: center;
+
+  a {
+    margin-right: 25px;
+  }
+}
+
+.popUp__vendor-name {
+  display: inline-block;
+  font-size: 16px;
+  margin-right: 25px;
 }
 
 .popUp__buttons {
