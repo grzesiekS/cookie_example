@@ -4,14 +4,18 @@ class Cookies {
     this.vendorsCookieAccept = [];
     this.cookieAccept = false;
 
-    this.createPopUpHtml();
+    this.getCookiAcceptData();
 
-    this.getElements();
-    this.getVendorsData(this.vendorUrl);
-    this.setBlurClassToElements();
-    this.setStopScrolling();
+    if(!this.cookieAccept) {
+      this.createPopUpHtml();
 
-    this.handleAcceptAction();
+      this.getElements();
+      this.getVendorsData(this.vendorUrl);
+      this.setBlurClassToElements();
+      this.setStopScrolling();
+
+      this.handleAcceptAction();
+    }
   }
 
   createPopUpHtml() {
@@ -160,6 +164,21 @@ class Cookies {
   acceptCookieCreate() {
     const thisCookies = this;
     document.cookie = `cookiePrivacyPolice=${JSON.stringify({accept: true, vendorsAccept: thisCookies.vendorsCookieAccept})}`;
+  }
+
+  getCookiAcceptData() {
+    const thisCookies = this;
+
+    const privacyPolice = document.cookie.split(';')
+      .filter(data => data.includes('cookiePrivacyPolice='))[0];
+
+    if(privacyPolice) {
+      const privacyPoliceData = JSON.parse(privacyPolice.replace('cookiePrivacyPolice=', ''));
+
+      thisCookies.cookieAccept = privacyPoliceData.accept;
+      thisCookies.vendorsCookieAccept = privacyPoliceData.vendorsAccept;
+    }
+  
   }
 
   getElements() {
