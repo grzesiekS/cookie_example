@@ -1,6 +1,6 @@
 class Cookies {
-  constructor() {
-    this.vendorUrl = 'https://optad360.mgr.consensu.org/cmp/v2/vendor-list.json';
+  constructor(vendorUrl) {
+    this.vendorUrl = vendorUrl;
     this.vendorsCookieAccept = [];
     this.cookieAccept = false;
     this.scrollZero = () => window.scrollTo(0, 0);
@@ -11,7 +11,7 @@ class Cookies {
       this.createPopUpHtml();
 
       this.getElements();
-      this.getVendorsData(this.vendorUrl);
+      if(this.vendorUrl) this.getVendorsData(this.vendorUrl);
       this.setBlurClassToElements();
       this.setStopScrolling();
 
