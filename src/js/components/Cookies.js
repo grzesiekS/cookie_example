@@ -186,7 +186,11 @@ class Cookies {
 
   acceptCookieCreate() {
     const thisCookies = this;
-    document.cookie = `cookiePrivacyPolice=${JSON.stringify({accept: true, vendorsAccept: thisCookies.vendorsCookieAccept})}`;
+    const expireDate = new Date();
+
+    expireDate.setDate(expireDate.getDate() + 1);
+
+    document.cookie = `cookiePrivacyPolice=${JSON.stringify({accept: true, vendorsAccept: thisCookies.vendorsCookieAccept})}; expires=${expireDate.toUTCString()}`;
   }
 
   getCookiAcceptData() {
